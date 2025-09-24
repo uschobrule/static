@@ -102,7 +102,8 @@ Route::group(['middleware' => ['lscache:max-age=30;public']], function () {
 
     Route::get('jsonapp/rankings/pairwise-rankings/d-{division}-{full_gender}/{date}/{refreshTime}/{req}', [App\Http\Controllers\AppRankingsController::class,'pairwise_rankings']);
     Route::get('jsonapp/rankings/rpi/d-{division}-{full_gender}/{date}/{refreshTime}/{req}', [App\Http\Controllers\AppRankingsController::class,'rpi']);
-
+    Route::get('jsonapp/rankings/npi/d-{division}-{full_gender}', [App\Http\Controllers\RankingsController::class,'npi']);
+    
     Route::get('jsonapp/scoreboard/gameday/d-{division}-{full_gender}/{conf}/{gdate}/{game_id}/{refreshTime}/{scrollTime}', [App\Http\Controllers\AppScoreboardController::class,'gameday']);
     Route::get('jsonapp/scoreboard/gameday/d-{division}-{full_gender}/{conf}/{gdate}/{game_id}/{refreshTime}/{scrollTime}/box', [App\Http\Controllers\AppScoreboardController::class,'gameday']);
     Route::get('jsonapp/scoreboard/gamedaybox/d-{division}-{full_gender}/{conf}/{gdate}/{game_id}/{refreshTime}/{scrollTime}/{boxMode}', [App\Http\Controllers\AppScoreboardController::class,'gamedaybox']);

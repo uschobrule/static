@@ -6,14 +6,11 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
-date_default_timezone_set('America/Chicago');
-$inc_dir = config('services.INC_DIR');
-set_include_path($inc_dir);
-include_once("classes/timedata_app");
-
 abstract class Controller extends BaseController
 {
     	use DispatchesJobs, ValidatesRequests;
+
+    	use Traits\TimeData;
 
 	public function parseuri($parts)
 	{
@@ -197,16 +194,7 @@ abstract class Controller extends BaseController
 		$season = preg_replace( "/-/", "", $full_season );
 	
 		return $season;
-	}	
-
-	public function get_current_full_season()
-	{	
-		
-		$td=new \timedata();
-		$season = $td->season;
-		
-		return substr($season,0,4)."-".substr($season,4,4);
-	}	
+	}		
 		
 	public function get_team_rank($json,$gender,$division,$team,$date)
 	{

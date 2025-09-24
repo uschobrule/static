@@ -1,0 +1,51 @@
+<table class="display compact nowrap" cellspacing="0" width="600px">
+<tr><td>
+<img src="https://www.uscho.com/email/mailchimplogo2023.png" width="600" height="90" /></td>
+</tr>
+<tr><td colspan="6" style="padding-top: 1.5em;">
+<h2>USCHO.com Division {{$division}} {{$full_gender}} Ice Hockey Poll<br />{{$pollweek}}</h2>
+</td></tr>
+<tr><td>
+<table cellspacing="0" width="600px" style="margin-top: 1em; border-collapse: collapse;">
+	<thead>
+		<tr style="border-bottom: 1px solid black;">
+			<th>Rank</th>
+			<th align="left" width="33%">Team</th>
+			<th>(First Place Votes)</th>
+			<th>Record</th>
+			<th>Points</th>
+			<th>Last Poll</th>	
+		</tr>
+	</thead>
+	<tbody>
+@foreach ($json->data as $rec)
+		<tr>
+			<td align="center">{{$rec->rnk}}</td>
+			<td>{{$rec->shortname}}</td>
+			<td  align="center">
+@if ($rec->first_pv)
+	({{$rec->first_pv}})
+@endif
+			</td>
+			<td align="center">{{$rec->record}}</td>
+			<td align="center">{{$rec->pts}}</td>
+			<td align="center">{{$rec->prev_rnk}}</td>
+		</tr>
+@endforeach
+@if ($json->other)
+<tr><td colspan="6" style="padding-top: 1em;">
+Others receiving votes: {{$json->other}}
+</td></tr>
+@endif
+	</tbody>	
+</table>
+</td></tr>
+<tr><td style="font-size: .9em; padding-top: 1em;">
+The USCHO.com Division {{$division}} {{$full_gender}} Ice Hockey Poll is compiled weekly and consists of {{$voters}} voters, including coaches and media professionals from across the country. Media outlets may republish this poll as long as <a href="https://www.uscho.com/">USCHO.com</a> is credited.
+</td></tr>
+<tr><td style="font-size: .9em; padding-top: 1em;">
+USCHO.com editorial contact: Matt Mackinder </br>
+<a href="mailto:matt.mackinder@uscho.com">matt.mackinder@uscho.com</a>
+</td></tr>
+
+</table>

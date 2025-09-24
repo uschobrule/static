@@ -1,0 +1,17 @@
+/node_modules
+/tests
+/bootstrap
+/config
+/public
+/storage
+/vendor
+/bootstrap
+/database
+/docker
+/app/Plugins
+.env
+package-lock.json
+composer.lock
+.editorconfig
+phpunit.xml
+.DS_Store

@@ -1,0 +1,2 @@
+# laravel setup using composer to your projects directory eg cd ~/projects
+composer create-project laravel/laravel static

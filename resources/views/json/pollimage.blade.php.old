@@ -1,0 +1,22 @@
+<table cellspacing="0" width="600px" style=" border: #282940 8px solid; padding:-2px">
+<tbody>
+<tr><td style="width:290px;" align="center">
+<img src="https://www.uscho.com/email/dcu.jpg" width="240px" height="88.8px" />
+<h2 style="padding: 5px; font-size: {{$font}}">DCU/USCHO.com Division {{$division}} {{$full_gender}} Ice Hockey Poll<br />{{$pollweek}}</h2>
+<img src="https://www.uscho.com/email/uscho_dark.png" width="250px" height="38px" style="margin-top: 10px;" />
+</td>
+<td><table cellspacing="0" width="300px">
+@foreach ($json->data as $rec)
+			<td align="center" style="width: 40px; background: #af2e42; color: white; border: #eeeeee 1px solid; border-radius: 8px">{{$rec->rnk}}</td>
+			<td align="center" style="width: 50px; border-bottom: #eeeeee 1px solid; padding-top: 1px;"><img src='https://www.uscho.com/images/logos/{{$rec->code}}.gif' style="height: 20px; width: auto;" /></td>
+			<td style="width: 170px; border-bottom: #eeeeee 1px solid;">{{$rec->shortname}}</td>
+			<td align="center" style="width: 40px; border-bottom: #eeeeee 1px solid;color: #777777;">
+@if ($rec->first_pv)
+	({{$rec->first_pv}})
+@endif
+			</td>
+		</tr>
+@endforeach
+</table>
+</td></tr>
+</table>

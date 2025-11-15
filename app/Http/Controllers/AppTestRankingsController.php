@@ -58,7 +58,7 @@ class AppTestRankingsController extends AppController
                 $division = strtoupper($division);
 
 		# poll is all in one file
-		$filename = config('services.JSON_DIR')."site/poll.json";
+		$filename = config('services.JSON_DIR')."/site/poll.json";
 		$page_title = "";
 
 		if (file_exists($filename)) {
@@ -134,15 +134,12 @@ class AppTestRankingsController extends AppController
 
 		# composite is all in one file
 		$season = $this->get_season($full_season);
-		$filename = $this->get_jsonfilename("ranking","rpi",$gender,$division,$season,"sc");
+		$filename = $this->get_jsonfilename("ranking","npi",$gender,$division,$season,"sc");
 		//echo $filename;
 		
 		$data = [];
 		
-		$page_title = $this->get_full_gender($gender)."'s D".$division." Ratings Percentage Index";
-	        if ($division == "I" && $gender == "w") {
-                        $page_title = "Women's National Collegiate Ratings Percentage Index";
-                }
+		$page_title = $this->get_full_gender($gender)."'s D".$division." National Collegiate Percentage (NPI) Index";
 	
 		if (file_exists($filename)) {
 			$stat = stat($filename);
@@ -174,15 +171,12 @@ class AppTestRankingsController extends AppController
 
 		# composite is all in one file
 		$season = $this->get_season($full_season);
-		$filename = $this->get_jsonfilename("ranking","pwr",$gender,$division,$season,"sc");
+		$filename = $this->get_jsonfilename("ranking","npi",$gender,$division,$season,"sc");
 		// echo $filename;
 		
 		$data = [];
 		
-		$page_title = $this->get_full_gender($gender)."'s D".$division." PairWise Rankings";
-                if ($division == "I" && $gender == "w") {
-                        $page_title = "Women's National Collegiate PairWise Rankings";
-                }
+		$page_title = $this->get_full_gender($gender)."'s D".$division." National Collegiate Percentage (NPI) Index";
 		
 		if (file_exists($filename)) {
 	                $stat = stat($filename);

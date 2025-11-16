@@ -147,7 +147,7 @@ class AppRankingsController extends AppController
                         	return Response::json(array('success' => 2, 'refreshTime' => $refreshTime));
                         }
 
-			$columns = array(0,1,5,6,7,8);
+			$columns = array(0,1,2,3,6,7);
        		        $prehead = array();
                 	$weights = array("2.0f","5.0f","1.0f","2.0f","2.0f","2.0f");
                 	$oppcolumns = array(0,0,0,0,1,1);
@@ -156,7 +156,6 @@ class AppRankingsController extends AppController
                 	$team_map = $team_map_data[$gender];
 
 			list($data,$header,$stat,$team_code) = $this->app_data($filename,$columns,1,$team_map);
-			$header[2] = "Adj RPI";
 			return $this->response_data($page_title, $columns, $weights,$prehead,"",$data,$header,$stat,[],$oppcolumns,$team_code);
 		}
 		return Response::json(array('html' => "Currently not available", 'json' => "", 'page_title' => $page_title, 'datatable' => []));
@@ -184,7 +183,7 @@ class AppRankingsController extends AppController
                                 return Response::json(array('success' => 2, 'refreshTime' => $refreshTime));
                         }
 
-			$columns = array(0,1,2,3,4,6);
+			$columns = array(0,1,2,3,6,7);
                 	$prehead = array();
                 	$weights = array("2.0f","5.0f","1.0f","2.0f","2.0f","2.0f");
                 	$oppcolumns = array(0,0,0,0,1,1);
@@ -193,7 +192,6 @@ class AppRankingsController extends AppController
                 	$team_map = $team_map_data[$gender];
 
 			list($data,$header,$stat,$team_code) = $this->app_data($filename,$columns,1,$team_map);
-			$header[2] =  "PW";
                         return $this->response_data($page_title, $columns, $weights,$prehead,"",$data,$header,$stat,[],$oppcolumns,$team_code);
 		}
 		return Response::json(array('html' => "Currently not available", 'json' => "", 'page_title' => $page_title, 'datatable' => []));

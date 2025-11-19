@@ -96,6 +96,7 @@ Route::group(['middleware' => ['lscache:max-age=30;public']], function () {
 
     Route::get('jsonapptest/rankings/pairwise-rankings/d-{division}-{full_gender}/{date}/{refreshTime}/{req}', [App\Http\Controllers\AppTestRankingsController::class,'pairwise_rankings']);
     Route::get('jsonapptest/rankings/rpi/d-{division}-{full_gender}/{date}/{refreshTime}/{req}', [App\Http\Controllers\AppTestRankingsController::class,'rpi']);
+    Route::get('jsonapptest/rankings/npi/d-{division}-{full_gender}/{date}/{refreshTime}/{req}', [App\Http\Controllers\AppTestRankingsController::class,'npi']);
 
     Route::get('jsonapp/notification/{platform}/{token}/{auth_key_in}/{favDiv}/{favTeam}/goal/{goalNotification}/period/{periodNotification}/game/{gameNotification}', [App\Http\Controllers\AppTestNotificationController::class,'sync']);
     //Route::get('jsonapp/synctokens/{platform}/{token}/{old_token}/{auth_key_in}/{favDiv}/{favTeam}/goal/{goalNotification}/period/{periodNotification}/game/{gameNotification}', [App\Http\Controllers\AppTestSyncController::class,'sync_tokens']);
@@ -103,7 +104,8 @@ Route::group(['middleware' => ['lscache:max-age=30;public']], function () {
     Route::get('jsonapp/rankings/pairwise-rankings/d-{division}-{full_gender}/{date}/{refreshTime}/{req}', [App\Http\Controllers\AppRankingsController::class,'pairwise_rankings']);
     Route::get('jsonapp/rankings/rpi/d-{division}-{full_gender}/{date}/{refreshTime}/{req}', [App\Http\Controllers\AppRankingsController::class,'rpi']);
     Route::get('jsonapp/rankings/npi/d-{division}-{full_gender}', [App\Http\Controllers\RankingsController::class,'npi']);
-    
+    Route::get('jsonapp/rankings/npi/d-{division}-{full_gender}/{date}/{refreshTime}/{req}', [App\Http\Controllers\AppTestRankingsController::class,'npi']);
+  
     Route::get('jsonapp/scoreboard/gameday/d-{division}-{full_gender}/{conf}/{gdate}/{game_id}/{refreshTime}/{scrollTime}', [App\Http\Controllers\AppScoreboardController::class,'gameday']);
     Route::get('jsonapp/scoreboard/gameday/d-{division}-{full_gender}/{conf}/{gdate}/{game_id}/{refreshTime}/{scrollTime}/box', [App\Http\Controllers\AppScoreboardController::class,'gameday']);
     Route::get('jsonapp/scoreboard/gamedaybox/d-{division}-{full_gender}/{conf}/{gdate}/{game_id}/{refreshTime}/{scrollTime}/{boxMode}', [App\Http\Controllers\AppScoreboardController::class,'gamedaybox']);

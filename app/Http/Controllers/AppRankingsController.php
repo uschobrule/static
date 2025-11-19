@@ -160,6 +160,44 @@ class AppRankingsController extends AppController
 		}
 		return Response::json(array('html' => "Currently not available", 'json' => "", 'page_title' => $page_title, 'datatable' => []));
 	}
+
+	public function npi($division,$full_gender,$date,$refreshTime,$req)
+	{
+
+		$gender = $gender = $this->get_gender($full_gender);
+		$division = strtoupper($division);
+                $season = $this->get_season("");
+		$full_season = substr($season,0,4)."-".substr($season,-4);
+
+		# composite is all in one file
+		$season = $this->get_season($full_season);
+		$filename = $this->get_jsonfilename("ranking","npi",$gender,$division,$season,"sc");
+		//echo $filename;
+		
+		$data = [];
+		
+		$page_title = $this->get_full_gender($gender)."'s D".$division." National Collegiate Percentage (NPI) Index";
+	
+		if (file_exists($filename)) {
+			$stat = stat($filename);
+			if ($refreshTime != 0 && $refreshTime == $stat['mtime']) {
+                        	return Response::json(array('success' => 2, 'refreshTime' => $refreshTime));
+                        }
+
+			$columns = array(0,1,2,3,6,7);
+       		        $prehead = array();
+                	$weights = array("2.0f","5.0f","1.0f","2.0f","2.0f","2.0f");
+                	$oppcolumns = array(0,0,0,0,1,1);
+
+                	$team_map_data = $this->load_team_map_data();
+                	$team_map = $team_map_data[$gender];
+
+			list($data,$header,$stat,$team_code) = $this->app_data($filename,$columns,1,$team_map);
+			return $this->response_data($page_title, $columns, $weights,$prehead,"",$data,$header,$stat,[],$oppcolumns,$team_code);
+		}
+		return Response::json(array('html' => "Currently not available", 'json' => "", 'page_title' => $page_title, 'datatable' => []));
+	}
+
 	public function pairwise_rankings($division,$full_gender,$date,$refreshTime,$req)
 	{
 

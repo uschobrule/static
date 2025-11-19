@@ -48,7 +48,21 @@ class AppTestTeamInfo extends AppController
 		}
 	}
 
+
+	public function nav_list_wlogo($lastModified=0) {
+
+		$res = $this->nav_list_data();
+		$res['logo_list'] = $this->test_logo_change($lastModified);
+
+		return Response::json($res);
+	}
+
 	public function nav_list() {
+		$res = $this->nav_list_data();	
+		return Response::json($res);
+	}
+
+	public function nav_list_data() {
 		$data = ['divGen' => [
 				['name' => "Men's DI", 'nice' => "d-i-men", 'division' => 'I', 'gender' => 'm'],
 				['name' => "Women's DI", 'nice' => "d-i-women", 'division' => 'I', 'gender' => 'w'],
@@ -65,7 +79,13 @@ class AppTestTeamInfo extends AppController
 			}
 		}	
 
-		return Response::json(array('success' => 1, 'data' => $data, 'ios' => '3.20', 'android' => '2.33'));
+		return array('success' => 1, 'data' => $data, 'ios' => '3.20', 'android' => '2.33');
+	}
+
+	private function test_logo_change($lastModified) {
+		return [
+			['url' => 'https://static.uscho.com/img/images/logos/uaa.gif/target.webp', 'file' => 'uaa.webp']
+		];
 	}
 
 	public function conf_list ($gender,$division,$conf,$team_code) {

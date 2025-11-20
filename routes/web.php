@@ -43,11 +43,13 @@ Route::group(['middleware' => ['lscache:max-age=600;public']], function () {
     Route::get('jsonapptest/teaminfo/nav_list', [App\Http\Controllers\AppTestTeamInfo::class,'nav_list']);
     Route::get('jsonapptest/teaminfo/nav_list/{lastModified}', [App\Http\Controllers\AppTestTeamInfo::class,'nav_list_wlogo']);
 
+    Route::get('jsonapptest/faq/{device}', [App\Http\Controllers\AppTestFaqController::class,'faq']);
     Route::get('jsonapptest/faq/{device}/{refreshTime}/{req}', [App\Http\Controllers\AppTestFaqController::class,'faq']);
 
     Route::get('jsonapp/teaminfo/nav_list', [App\Http\Controllers\AppTeamInfo::class,'nav_list']);
     Route::get('jsonapp/teaminfo/nav_list/{lastModified}', [App\Http\Controllers\AppTeamInfo::class,'nav_list_wlogo']);
 
+    Route::get('jsonapp/faq/{device}', [App\Http\Controllers\AppFaqController::class,'faq']);
     Route::get('jsonapp/faq/{device}/{refreshTime}/{req}', [App\Http\Controllers\AppFaqController::class,'faq']);
 });
 

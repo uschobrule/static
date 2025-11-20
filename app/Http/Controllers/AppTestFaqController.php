@@ -11,14 +11,9 @@ class AppTestFaqController extends AppController
 		return $this->faq($uri);
 	}
 
-	public function faq($device,$refreshTime,$req) {
+	public function faq($device,$refreshTime = 0, $req = 0) {
 
-                $stat = stat("/home/app/static/app/Http/Controllers/AppFaqController.php");
-                if ($refreshTime != 0 && $refreshTime == $stat['mtime']) {
-                        return Response::json(array('success' => 2, 'refreshTime' => $refreshTime));
-                }
-
-		$data = [
+        $data = [
                     [
                         'title' => "How do I get to the Fan Forum?",
                         'text' => "Click on the USCHO tab in bottom right corner and you will see a link to USCHO.com and fanforum.USCHO.com.",
@@ -86,6 +81,6 @@ class AppTestFaqController extends AppController
                     ]
                 ];
 
-		return Response::json(array('success' => 1, 'data' => $data, 'refeshTime' => $stat['mtime']));
-	}
+        return Response::json(array('success' => 1, 'data' => $data, 'refeshTime' => 0));
+    }
 }

@@ -25,7 +25,7 @@ class AppFaqController extends AppController
                         'title' => "I am confused on how to navigate the app.",
                         'text' => "There are five tabs at the bottom of the screen. The App loads on the Scores tab. Click on a tab at the bottom to get to the feature. There is also an icon with three dots in the top banner that brings up a dropdown for Settings, Policy and the FAQ.",
                         'height' => "150.0",
-                        'url' => "https://i0.wp.com/www.uscho.com/wp-content/uploads/2019/10/".$device."FAQMainNav.png"
+                        'url' => "https://wp-admin.uscho.com/wp-content/uploads/2019/10/".$device."FAQMainNav.png"
                     ],
 
                     [
@@ -40,7 +40,7 @@ class AppFaqController extends AppController
                         'title' => "I only see one game in the scores tab. Where are they?",
                         'text' => "The scores tab swipes right and left. The day’s games are broken up into conference games, non-conference games and exhibition games. The tabs slide right and left and you can select a conference or swipe to the conference.",
                         'height' => "125.0",
-                        'url' => "https://i0.wp.com/www.uscho.com/wp-content/uploads/2019/10/".$device."FAQGameDay.png"
+                        'url' => "https://wp-admin.uscho.com/wp-content/uploads/2019/10/".$device."FAQGameDay.png"
                     ],
 
                     [
@@ -54,7 +54,7 @@ class AppFaqController extends AppController
                         'title' => "How do I find my team?",
                         'text' => "Click on the teams tab and just like game day, you can swipe to your conference or select the conference from the horizontal scroll by clicking. Then click the default team for that conference and a drop down appears with all teams. You can also click on a team in the standings and rankings tab and it will bring you straight to the schedule tab for the team.",
                         'height' => "200.0",
-                        'url' => "https://i0.wp.com/wwwtest.uscho.com/wp-content/uploads/2019/10/".$device."FAQFindTeam.png"
+                        'url' => "https://wp-admin.uscho.com/wp-content/uploads/2019/10/".$device."FAQFindTeam.png"
                     ],
 
 
@@ -62,7 +62,7 @@ class AppFaqController extends AppController
                         'title' => "How do I select my favorite team?",
                         'text' => "Go to the Teams tab, select the conference, select the team by clicking on the default team name, pick your team. Then click on the +FAVORITE link. It will turn green. By selecting your favorite team you can configure notifications. Also the app highlights them in green on opponents schedules. The Scores tab should default to the tab your favorite team is on for that night. ",
                         'height' => "200.0",
-                        'url' => "https://i0.wp.com/www.uscho.com/wp-content/uploads/2019/10/".$device."FAQFavTeam.png"
+                        'url' => "https://wp-admin.uscho.com/wp-content/uploads/2019/10/".$device."FAQFavTeam.png"
                     ],
 
 

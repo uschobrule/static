@@ -210,6 +210,7 @@ class AppTeamInfo extends AppController
 		$json['roadrecord'] = "";
 		$json['pwr'] = "";
 		$json['rpi'] = "";
+		$json['npi'] = "";
 
                 if (file_exists($npifilename)) {
                 	$jsont = file_get_contents($npifilename);
@@ -218,6 +219,7 @@ class AppTeamInfo extends AppController
 			if (property_exists($json_obj,$team_name)) {
                         	if (property_exists($json_obj->$team_name,"record") && property_exists($json_obj->$team_name,"winpctrnk")) {
 					$json['record'] = "Rec: ".$json_obj->$team_name->record." (".$json_obj->$team_name->winpctrnk.")";
+					$json['npi'] = "NPI: ".$json_obj->$team_name->rnk;
 				} else {
 					$json['record'] = "Rec: NA";
 				}

@@ -184,8 +184,8 @@ class AppTeamInfo extends AppController
 	public function current_team_info($gender,$division,$season,$conf_code,$team_name){
                 $json = [];
 
-                $pwrfilename = $this->get_jsonfilename("ranking","pwrraw",$gender,$division,$season,"sc");
-                $rpifilename = $this->get_jsonfilename("ranking","rpiraw",$gender,$division,$season,"sc");
+          
+                $npifilename = $this->get_jsonfilename("ranking","npiraw",$gender,$division,$season,"sc");
 		$standfilename = $this->get_jsonfilename("standings",$conf_code,$gender,$division,$season,"");
 
                 # poll is all in one file
@@ -211,8 +211,8 @@ class AppTeamInfo extends AppController
 		$json['pwr'] = "";
 		$json['rpi'] = "";
 
-                if (file_exists($pwrfilename)) {
-                	$jsont = file_get_contents($pwrfilename);
+                if (file_exists($npifilename)) {
+                	$jsont = file_get_contents($npifilename);
                         $json_obj = json_decode($jsont);
 
 			if (property_exists($json_obj,$team_name)) {
@@ -221,19 +221,10 @@ class AppTeamInfo extends AppController
 				} else {
 					$json['record'] = "Rec: NA";
 				}
-                        	if (property_exists($json_obj->$team_name,"pts") && property_exists($json_obj->$team_name,"rnk")) {
-					$json['pwr'] = "PWR: ".$json_obj->$team_name->pts." (".$json_obj->$team_name->rnk.")";
-				} else {
-                                        $json['pwr'] = "PWR: NA";
-                                }
-				if (property_exists($json_obj->$team_name,"adjrpiqwb") && property_exists($json_obj->$team_name,"rpirnk")) {
-                        		$json['rpi'] = "RPI: ".number_format ( $json_obj->$team_name->adjrpiqwb,4)." (".$json_obj->$team_name->rpirnk.")";
-				} else {
-                                        $json['RPI'] = "RPI: NA";
-                                }
 			}
                 }
 
+/*
                if (file_exists($rpifilename)) {
                  	$jsont = file_get_contents($rpifilename);
                         $json_obj = json_decode($jsont);
@@ -243,6 +234,7 @@ class AppTeamInfo extends AppController
 				$json['roadrecord'] = "Road: ".$json_obj->$team_name->road->rec;
 			}
                 }
+*/
 
 		if (file_exists($standfilename)) {
                         $jsont = file_get_contents($standfilename);
@@ -257,13 +249,17 @@ class AppTeamInfo extends AppController
 					$rnk = $ind;
 					$cpts = $rec[3];
 				}
-				$res['record'] = $rec[1];
+				$res['crecord'] = $rec[2];
+				$res['record'] = $rec[6];
 				$res['rnk'] = $rnk;
                         	$stand[$rec[0]] = $res;
 				$ind++;
 			}
 
-                	if (array_key_exists($team_name,$stand)) {$json['confrecord'] = "Cnf: ".$stand[$team_name]['record']." (".$stand[$team_name]['rnk'].")";}
+                	if (array_key_exists($team_name,$stand)) {
+                		$json['confrecord'] = "Cnf: ".$stand[$team_name]['crecord']." (".$stand[$team_name]['rnk'].")";
+                		$json['record'] = "Rec: ".$stand[$team_name]['record'];
+                	}
                 }
 
                 return $json;

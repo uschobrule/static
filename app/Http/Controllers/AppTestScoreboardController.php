@@ -509,8 +509,10 @@ class AppTestScoreboardController extends AppTeamInfo
                                 $scroll_status = "live";
 			}
                         if ($rec->vscore == "" || $scroll_status == "live") {
-                        	$rec->last_play = $lrec->last_play;
-                        	$rec->pp = $lrec->pp;
+                        	$rec->last_play = "";
+                                if (property_exists($lrec,"last_play")) {$rec->last_play = $lrec->last_play;}
+                                $rec->pp = "";
+                                if (property_exists($lrec,"pp")) {$rec->pp = $lrec->pp;}
                                 $rec->hscore = $lrec->hscore;
                                 $rec->vscore = $lrec->vscore;
                                 $rec->last_modified = $lrec->last_modified;

@@ -656,7 +656,7 @@ class AppScoreboardController extends AppTeamInfo
 		}
 
 		if (preg_match('/line|all/',$boxMode)) {  
-			$lines = ['H' => [],'V' => []];
+			$lines = ['H' => ['lines' => []],'V' => ['lines' => []]];
 
 			$ldata = $live_box->teams->lineup;
 

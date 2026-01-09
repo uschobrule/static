@@ -693,7 +693,7 @@ class AppScoreboardController extends AppTeamInfo
 					$rec = [];
 					array_push($rec,$ply->number);
 					array_push($rec," P".$period." ".substr($ply->text,0,100));
-					array_push($rec,$period);
+					//array_push($rec,$period);
 					array_push($plays,$rec);
 				}
                 	}

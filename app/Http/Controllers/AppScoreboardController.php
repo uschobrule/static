@@ -604,15 +604,16 @@ class AppScoreboardController extends AppTeamInfo
 			$match = "-vs-".$home->nice;	
 		}	
 		$boxfile = $this->get_jsonboxfilename($match,$gender,$gdate);
-		$stat = stat($boxfile);
-		$refreshTime = $stat['mtime'];
-
-		if ($oldRefreshTime != 0 && $oldRefreshTime == $refreshTime) {
-			return Response::json(array('success' => 2, 'status' => $scroll_status, 'scroll' => $scroll, 'refreshTime' => $refreshTime, 'scrollRefreshTime' => $scrollRefreshTime));
-		}
 
 		$status = "none";
 		if (file_exists($boxfile)) {
+			$stat = stat($boxfile);
+			$refreshTime = $stat['mtime'];
+
+			if ($oldRefreshTime != 0 && $oldRefreshTime == $refreshTime) {
+				return Response::json(array('success' => 2, 'status' => $scroll_status, 'scroll' => $scroll, 'refreshTime' => $refreshTime, 'scrollRefreshTime' => $scrollRefreshTime));
+			}
+
                         $json = file_get_contents($boxfile);
                         $box = json_decode($json);
 			if (property_exists($box,"goals")) {

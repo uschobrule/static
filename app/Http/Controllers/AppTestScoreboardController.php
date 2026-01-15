@@ -291,7 +291,7 @@ class AppTestScoreboardController extends AppTeamInfo
 
 			usort($json->data, function ($item1, $item2) {
                                 return strcmp($item1->starttime,$item2->starttime);
-                        });
+			});
 
                         foreach ($json->data as $rec) {
 				$gdates[$rec->gdate] = $rec->sort_date;
@@ -299,7 +299,7 @@ class AppTestScoreboardController extends AppTeamInfo
 
 				# take live scored from live scores file
 				$game_id = $rec->game_id;
-			
+
 				if(!array_key_exists('all',$index)){$index['all'] = 0;}
 				if(!array_key_exists('t20',$index)){$index['t20'] = 0;}
 
@@ -509,7 +509,7 @@ class AppTestScoreboardController extends AppTeamInfo
                                 $scroll_status = "live";
 			}
                         if ($rec->vscore == "" || $scroll_status == "live") {
-                        	$rec->last_play = "";
+                                $rec->last_play = "";
                                 if (property_exists($lrec,"last_play")) {$rec->last_play = $lrec->last_play;}
                                 $rec->pp = "";
                                 if (property_exists($lrec,"pp")) {$rec->pp = $lrec->pp;}
@@ -526,11 +526,11 @@ class AppTestScoreboardController extends AppTeamInfo
 
 	private function game_clock($clock,$period,$minutesot,$countdown) {
 		if (preg_match('/:/',$clock)) {
-			list($min,$sec) = explode(":",$clock);
-		} else {
-			$min = $clock;
-			$sec = 0;
-		}
+                	list($min,$sec) = explode(":",$clock);
+                } else {
+                        $min = $clock;
+                        $sec = 0;
+                }
 
 		if ($countdown) {return $clock;}
 	
@@ -575,12 +575,12 @@ class AppTestScoreboardController extends AppTeamInfo
 
 		$scroll = [];
 		if ($oldRefreshTime != 0 && $scrollRefreshTime == $oldScrollRefreshTime) {
-			$scroll = ['conf' => [], 'scroll_status' => $scroll_status, 'data' => [], 'header' => [], 'weights' => [], 'dates' => [], 'page_title' => "", 'updated' => "", 'footer' => "", 'prehead' => []];
+			$scroll = ['conf' => [], 'scroll_status' => $scroll_status, 'data' => [], 'header' => [], 'weights' => [], 'dates' => [], 'page_title' => "", 'updated' => "", 'footer' => "", 'prehead' => [],"refreshTime" => $scrollRefreshTime];
                 } else {
 			$cdates = [];
 			if ($oldRefreshTime == 0) {$cdates=$dates;}
 			
-			$scroll = ['conf' => $conf_list, 'scroll_status' => $scroll_status, 'data' => $data, 'header' => $header, 'weights' => $weights, 'dates' => $cdates, 'page_title' => $page_title, 'updated' => $updated, 'footer' => "", 'prehead' => []];
+			$scroll = ['conf' => $conf_list, 'scroll_status' => $scroll_status, 'data' => $data, 'header' => $header, 'weights' => $weights, 'dates' => $cdates, 'page_title' => $page_title, 'updated' => $updated, 'footer' => "", 'prehead' => [],"refreshTime" => $scrollRefreshTime];
 		}
 
 		$live_box = [];
@@ -604,22 +604,23 @@ class AppTestScoreboardController extends AppTeamInfo
 			$match = "-vs-".$home->nice;	
 		}	
 		$boxfile = $this->get_jsonboxfilename($match,$gender,$gdate);
-		$stat = stat($boxfile);
-		$refreshTime = $stat['mtime'];
-
-		if ($oldRefreshTime != 0 && $oldRefreshTime == $refreshTime) {
-			return Response::json(array('success' => 2, 'status' => $scroll_status, 'scroll' => $scroll, 'refreshTime' => $refreshTime, 'scrollRefreshTime' => $scrollRefreshTime));
-		}
 
 		$status = "none";
 		if (file_exists($boxfile)) {
+			$stat = stat($boxfile);
+			$refreshTime = $stat['mtime'];
+
+			if ($oldRefreshTime != 0 && $oldRefreshTime == $refreshTime) {
+				return Response::json(array('success' => 2, 'status' => $scroll_status, 'scroll' => $scroll, 'refreshTime' => $refreshTime, 'scrollRefreshTime' => $scrollRefreshTime));
+			}
+
                         $json = file_get_contents($boxfile);
                         $box = json_decode($json);
 			if (property_exists($box,"goals")) {
                                 $status = "final";
 			}
-			list($header,$data,$oppcolumns,$weights,$preheader,$colgroup) = $this->organize_struct($box,$status,$boxMode);
 
+			list($header,$data,$oppcolumns,$weights,$preheader,$colgroup) = $this->organize_struct($box,$status,$boxMode);
 			if (property_exists($box,"goals") && preg_match('/box|all/',$boxMode) ) {
 				list($header,$data,$oppcolumns,$weights,$preheader,$colgroup) = $this->organize_box($box,$header,$data,$oppcolumns,$weights,$preheader,$colgroup);
 			}
@@ -814,7 +815,11 @@ class AppTestScoreboardController extends AppTeamInfo
 		foreach ($box->summary as $rec) {
                         $res = [];
 
-                        array_push($res,$rec->chs_team_code);
+                        if (property_exists($rec,"chs_team_code")) {
+	                        array_push($res,$rec->chs_team_code);
+	                } else {
+	                	array_push($res,$box->game_info->visname);
+	                }
 
                         foreach ($box->per as $per) {
 				if (property_exists($rec->goals,$per)) {
@@ -823,10 +828,15 @@ class AppTestScoreboardController extends AppTeamInfo
 					array_push($res,0);
 				}
                         }
-
-                        array_push($res,$rec->tgoals);
-                        array_push($res,$rec->tpen."-".$rec->tpim);
-			array_push($res,$rec->tppg."-".$rec->tppo);
+                        if (property_exists($rec,"tgoals")) {
+	                        array_push($res,$rec->tgoals);
+	                }
+	                if (property_exists($rec,"tpim")) {
+	                        array_push($res,$rec->tpen."-".$rec->tpim);
+	                }
+	                if (property_exists($rec,"tppg")) {
+				array_push($res,$rec->tppg."-".$rec->tppo);
+			}
 
                         array_push($data['byperiod'],$res);
                 }

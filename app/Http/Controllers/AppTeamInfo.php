@@ -78,7 +78,7 @@ class AppTeamInfo extends AppController
 			}
 		}	
 
-		return array('success' => 1, 'data' => $data, 'ios' => '3.20', 'android' => '2.49');
+		return array('success' => 1, 'data' => $data, 'ios' => '3.30', 'android' => '2.49');
 	}
 
 	private function test_logo_change($lastModified) {
